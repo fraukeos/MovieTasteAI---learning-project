@@ -1,5 +1,5 @@
 # ============================================================
-# MovieAI - TMDb Schnittstelle
+# MovieTasteAI - TMDb Schnittstelle
 # ============================================================
 #
 # Diese Datei übernimmt:
