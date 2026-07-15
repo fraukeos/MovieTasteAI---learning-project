@@ -16,8 +16,8 @@
 #
 # ============================================================
 
-
 import os
+import sys
 
 from pathlib import Path
 
@@ -34,19 +34,47 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
 
 # Import aus selbst erstelltem Modul tmdb.py
-from tmdb import create_movies_file, create_candidates_file
+from tmdb import create_movies_file, create_candidates_file, check_api_key
 
 # Warnungen bzgl. unbekannter Genres unterdrücken (stattdessen wird Liste angezeigt)
 import warnings
-
 warnings.filterwarnings("ignore", category=UserWarning, module="sklearn.preprocessing._label")
+
+
+# ============================================================
+# Demo-Modus abfragen
+# ============================================================
+tmdb_key = os.getenv("TMDB_API_KEY")    # Zur Prüfung: Soll TMDb verwendet werden?
+
+if tmdb_key:
+    if check_api_key(tmdb_key):
+        DATA_PATH = "data"
+        print("Gültiger TMDb API Key gefunden.")
+
+    else:
+        raise ValueError("TMDb API Key ist ungültig. Bitte .env Datei prüfen.")
+
+else:
+    while True:
+        demo_mode = input("Kein TMDb API Key gefunden.\n Soll der Demomodus gestartet werden? (j/n) ")
+        
+        if demo_mode.lower() == "j":
+            DATA_PATH = "data_demo"
+            print("Demo-Modus wird verwendet.")
+            break
+
+        elif demo_mode.lower() == "n":
+            sys.exit("TMDB_API_KEY fehlt. Bitte .env Datei prüfen. \nProgramm wird beendet.")
+
+        else:
+            print("Ungültige Eingabe. Bitte j oder n eingeben.")
 
 
 # ============================================================
 # Ordner vorbereiten
 # ============================================================
 
-os.makedirs("data", exist_ok=True)
+os.makedirs(DATA_PATH, exist_ok=True)
 os.makedirs("output", exist_ok=True)
 
 
@@ -56,7 +84,11 @@ os.makedirs("output", exist_ok=True)
 
 print("\n[1/8] Netflix-Historie laden")
 
-history = pd.read_csv("data/netflix_history.csv")
+# Prüfen, ob Netflixhistorie im Ordner vorhanden
+if not Path(f"{DATA_PATH}/netflix_history.csv").exists():
+    sys.exit(f"Netflix-Historie fehlt.\nBitte die Datei netflix_history.csv im Ordner {DATA_PATH} ergänzen.")
+
+history = pd.read_csv(f"{DATA_PATH}/netflix_history.csv")
 print("Anzahl Einträge in Historie:", len(history))
 
 
@@ -137,17 +169,31 @@ watch_count["Interest"] = (watch_count["Views"].apply(calculate_interest))
 
 
 # ============================================================
-# TMDb Daten laden
+# TMDb bzw. Demo-Daten laden
 # ============================================================
 
 print("\n[4/8] TMDb Filmdaten laden")
 
-# API abfragen reduzieren
-if Path("data/movies.csv").exists():
-    movies = pd.read_csv("data/movies.csv")
+# Prüfen, ob Beispieldatei für Demomodus vorhanden
+if DATA_PATH == "data_demo":
+    if Path(f"{DATA_PATH}/movies.csv").exists():
+        movies = pd.read_csv(f"{DATA_PATH}/movies.csv")
 
-else:
-    movies = create_movies_file(movie_titles)
+    else:
+        raise FileNotFoundError(f"Beispieldatei movies.csv fehlt im Ordner {DATA_PATH}.")
+
+# API-Anfragen reduzieren:
+# Prüfen, ob movies.csv bereits erstellt wurde und ob netflix_history.csv ggf. aktualisiert wurde
+elif DATA_PATH == "data":
+    if not Path("data/movies.csv").exists():
+        movies = create_movies_file(movie_titles)
+       
+    elif os.path.getmtime("data/netflix_history.csv") > os.path.getmtime("data/movies.csv"):
+        print("Netflixhistorie wurde aktualisiert.\nFilmdaten werden neu abgerufen.")
+        movies = create_movies_file(movie_titles)
+
+    else:
+        movies = pd.read_csv("data/movies.csv")
 
 movies = movies.merge(watch_count, on="Title", how="inner")
 
@@ -223,25 +269,38 @@ importance.to_csv("output/feature_importance.csv", index=False)
 # ============================================================
 print("\n[7/8] Empfehlungen erstellen")
 
-if Path("data/candidates.csv").exists():
-    try:
-        reload_candidates = input("Kandidatenliste neu von TMDb laden? (j/n): ").lower()
-        if reload_candidates not in ["j", "n"]:
-            raise ValueError("Ungültige Eingabe")
+# Demo-Modus prüfen
+if DATA_PATH == "data_demo":
+    if Path(f"{DATA_PATH}/candidates.csv").exists():
+        candidates = pd.read_csv(f"{DATA_PATH}/candidates.csv")
 
-    except ValueError:
-        print("Ungültige Eingabe. Vorhandene Kandidatenliste wird verwendet.")
-        reload_candidates = "n"
+    else:
+        sys.exit(f"Beispieldatei candidates.csv fehlt im Ordner {DATA_PATH}.")
 
+# Regulärer Modus, prüfen ob Datei für Kandidatenfilme schon vorhanden
 else:
-    reload_candidates = "j"     # falls Pfad nicht existiert, wird reload_candidates automatisch auf j gesetzt
+    if Path(f"{DATA_PATH}/candidates.csv").exists():
+        try:
+            reload_candidates = input("Kandidatenliste bereits vorhanden.\nNeu von TMDb laden? (j/n): ")
 
-if reload_candidates == "j":
-    candidates = create_candidates_file(pages=5)
+            if reload_candidates.lower() not in ["j", "n"]:
+                raise ValueError
 
-else:
-    print("Vorhandene Kandidatenliste wird verwendet.")
-    candidates = pd.read_csv("data/candidates.csv")
+        except ValueError:
+            print("Ungültige Eingabe.\nVorhandene Kandidatenliste wird verwendet.")
+            reload_candidates = "n"
+
+    # Falls Datei nicht vorhanden, wird reload_candidates automatisch auf j gesetzt
+    else:
+        reload_candidates = "j"
+
+    if reload_candidates.lower() == "j":
+        candidates = create_candidates_file(pages=5)
+
+    # Falls reload_candidates = n
+    else:
+        print("Vorhandene Kandidatenliste wird verwendet.")
+        candidates = pd.read_csv(f"{DATA_PATH}/candidates.csv")
         
 # bereits gesehene Filme entfernen
 candidates = candidates[~candidates["Title"].isin(movies["Title"])]
