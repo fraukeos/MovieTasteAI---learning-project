@@ -9,7 +9,7 @@ Einfaches Machine-Learning-Projekt, das eine Netflix-Wiedergabehistorie analysie
 
 
 ## Architektur
-
+```text
                     Netflix Export
                          |
                          v
@@ -49,7 +49,7 @@ Einfaches Machine-Learning-Projekt, das eine Netflix-Wiedergabehistorie analysie
                                         v
 
                               Top 20 Empfehlungen
-
+```
 ## Features
 - Liest den exportierten Netflix-Verlauf ein (`Title`, `Date`)
 - Entfernt Serienfolgen aus der Historie (aktuell nur Filmempfehlungen)
@@ -67,7 +67,7 @@ Einfaches Machine-Learning-Projekt, das eine Netflix-Wiedergabehistorie analysie
 
 ## Modell
 Das Modell verwendet zwei Hauptinformationen:
-
+```text
 # 1. Persönliche Interessen
 Aus der Netflix-Historie werden bevorzugte Genres abgeleitet.
 Gewichtung: 50 %
@@ -75,13 +75,15 @@ Gewichtung: 50 %
 # 2. Allgemeine Filmqualität
 Das TMDb Rating wird ebenfalls berücksichtigt.
 Gewichtung: 50 %
-
+```
 ## Input
 Netflix Titelverlauf (muss von Netflix exportiert werden):
 > Beispiel:
-Title,Date
-"The Boroughs: Die Graue Rebellion","6/6/26"
-"Inception","5/5/26"
+> ```text
+> Title,Date
+>"The Boroughs: Die Graue Rebellion","6/6/26"
+>"Inception","5/5/26"
+> ```
 
 ## Installation
 Benötigte Bibliotheken installieren:
@@ -104,15 +106,16 @@ python main.py
 
 ## Ergebnisse
 Nach erfolgreichem Durchlauf werden Dateien im Ordner output erzeugt:
-
+```text
 Datei | Zweck
 recommendations.csv | Liste der empfohlenen Filme
 recommendations.png | Grafische Darstellung der Empfehlungen
 feature_importance.csv | Wichtigkeit der Modellmerkmale
 feature_importance.png | Visualisierung der wichtigsten Features
-
+```
 
 ### Projektstruktur
+```text
 MovieTasteAI/
 │
 ├── data/
@@ -134,9 +137,10 @@ MovieTasteAI/
 ├── .env                        (eigener TMDb API Key)
 ├── requirements.txt
 └── .gitignore
-
+```
 
 ### Beschreibung der Ordner und Dateien
+```text
 Datei/Ordner  |      Zweck
 data/	       |      Eingabedaten und automatisch erzeugte Filmdaten
 output/	|      Empfehlungen und Visualisierungen
@@ -146,3 +150,4 @@ main.py	|      Hauptprogramm und Machine-Learning-Ablauf
 MODEL.md	|      Erklärung des verwendeten Modells
 requirements.txt|	Benötigte Python-Bibliotheken
 .gitignore	|      Dateien, die nicht veröffentlicht werden sollen
+```
