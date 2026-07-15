@@ -1,4 +1,4 @@
-# MovieTasteAI
+# MovieTasteAI (Lernprojekt)
 
 Einfaches Machine-Learning-Projekt, das eine Netflix-Wiedergabehistorie analysiert und daraus persönliche Filmempfehlungen erstellt.
 
