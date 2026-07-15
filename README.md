@@ -113,6 +113,7 @@ recommendations.png | Grafische Darstellung der Empfehlungen
 feature_importance.csv | Wichtigkeit der Modellmerkmale
 feature_importance.png | Visualisierung der wichtigsten Features
 ```
+> Beispieldaten können als Referenz unter "output_example" eingesehen werden
 
 ### Projektstruktur
 ```text
