@@ -10,7 +10,7 @@ Einfaches Machine-Learning-Projekt, das eine Netflix-Wiedergabehistorie analysie
 MovieTasteAI kann auf zwei Arten genutzt werden:
 
 ### Demo-Modus:
-wenn kein TMDb API Key gefunden wurde, kann der Demo-Modus gestartet werden.
+Wenn kein TMDb API Key gefunden wurde, kann der Demo-Modus gestartet werden.
 Es werden vorbereitete Beispieldaten (Ordner data_demo) verwendet, sodass das Modell sofort getestet werden kann.
 
 ### Vollständiger Modus
