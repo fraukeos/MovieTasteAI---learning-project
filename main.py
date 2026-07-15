@@ -330,7 +330,7 @@ plt.barh(
 
 plt.xlabel("Einfluss auf Modellentscheidung")
 plt.ylabel("Feature")
-plt.title("MovieAI - Feature Importance")
+plt.title("MovieTasteAI - Feature Importance")
 
 plt.tight_layout()
 
@@ -368,7 +368,7 @@ plt.barh(
 )
 
 plt.xlabel("Vorhergesagtes persönliches Interesse")
-plt.title("MovieAI Empfehlungen")
+plt.title("MovieTasteAI Empfehlungen")
 plt.gca().invert_yaxis()
 plt.tight_layout()
 
