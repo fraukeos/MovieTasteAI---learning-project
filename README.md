@@ -135,20 +135,20 @@ MovieTasteAI/
 ├── MODEL.md
 ├── README.md
 ├── .env.example
-├── .env                        (eigener TMDb API Key)
+├── .env                        (eigener TMDb API Key, bei Github nicht inkludiert)
 ├── requirements.txt
 └── .gitignore
 ```
 
 ### Beschreibung der Ordner und Dateien
 ```text
-Datei/Ordner  |      Zweck
-data/	       |      Eingabedaten und automatisch erzeugte Filmdaten
-output/	|      Empfehlungen und Visualisierungen
-.env.example	|      Vorlage für die TMDb API Konfiguration
-tmdb.py	|      Kommunikation mit der TMDb API
-main.py	|      Hauptprogramm und Machine-Learning-Ablauf
-MODEL.md	|      Erklärung des verwendeten Modells
-requirements.txt|	Benötigte Python-Bibliotheken
-.gitignore	|      Dateien, die nicht veröffentlicht werden sollen
+Datei/Ordner     |  Zweck
+data/            |  Eingabedaten und automatisch erzeugte Filmdaten
+output/	         |  Empfehlungen und Visualisierungen
+.env.example	   |  Vorlage für die TMDb API Konfiguration
+tmdb.py	         |  Kommunikation mit der TMDb API
+main.py	         |  Hauptprogramm und Machine-Learning-Ablauf
+MODEL.md	       |  Erklärung des verwendeten Modells
+requirements.txt |	Benötigte Python-Bibliotheken
+.gitignore	     |  Dateien, die nicht veröffentlicht werden sollen
 ```
