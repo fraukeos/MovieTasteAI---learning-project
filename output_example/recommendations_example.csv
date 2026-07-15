@@ -1,0 +1,21 @@
+Title,Genres,Rating,GenreList,Prediction
+Avengers: Infinity War,Abenteuer|Action|Science Fiction,8.239,"['Abenteuer', 'Action', 'Science Fiction']",6.84
+Star Wars: The Mandalorian and Grogu,Action|Abenteuer|Science Fiction,6.7,"['Action', 'Abenteuer', 'Science Fiction']",6.77
+Predator: Badlands,Action|Science Fiction|Abenteuer,7.822,"['Action', 'Science Fiction', 'Abenteuer']",6.77
+Spider-Man: No Way Home,Action|Abenteuer|Science Fiction,7.934,"['Action', 'Abenteuer', 'Science Fiction']",6.77
+Spider-Man: Brand New Day,Science Fiction|Action|Abenteuer,0.0,"['Science Fiction', 'Action', 'Abenteuer']",6.77
+Supergirl,Action|Abenteuer|Science Fiction,6.227,"['Action', 'Abenteuer', 'Science Fiction']",6.77
+Der Astronaut – Project Hail Mary,Science Fiction|Abenteuer,8.667,"['Science Fiction', 'Abenteuer']",6.61
+Avatar: Fire and Ash,Science Fiction|Abenteuer|Fantasy,7.629,"['Science Fiction', 'Abenteuer', 'Fantasy']",6.61
+Dune,Science Fiction|Abenteuer|Kriegsfilm,7.782,"['Science Fiction', 'Abenteuer', 'Kriegsfilm']",6.61
+Ne Zha 2,Animation|Action|Fantasy|Abenteuer,8.152,"['Animation', 'Action', 'Fantasy', 'Abenteuer']",6.57
+Greenland 2,Abenteuer|Thriller|Science Fiction,6.451,"['Abenteuer', 'Thriller', 'Science Fiction']",6.54
+Avatar Aang: Der Herr der Elemente,Animation|Action|Abenteuer|Fantasy,0.0,"['Animation', 'Action', 'Abenteuer', 'Fantasy']",6.51
+Mortal Kombat II,Action|Fantasy|Abenteuer,7.984,"['Action', 'Fantasy', 'Abenteuer']",6.51
+Die Odyssee,Abenteuer|Action|Fantasy,5.4,"['Abenteuer', 'Action', 'Fantasy']",6.51
+Matrix,Action|Science Fiction,8.251,"['Action', 'Science Fiction']",6.41
+Harry Potter und der Stein der Weisen,Abenteuer|Fantasy,7.901,"['Abenteuer', 'Fantasy']",6.35
+Enola Holmes 3,Abenteuer|Krimi|Mystery,6.999,"['Abenteuer', 'Krimi', 'Mystery']",6.35
+Swapped – Getauscht,Abenteuer|Animation|Familie|Fantasy,8.913,"['Abenteuer', 'Animation', 'Familie', 'Fantasy']",6.35
+Kill Code,Action|Thriller|Science Fiction,5.214,"['Action', 'Thriller', 'Science Fiction']",6.27
+Hoppers,Abenteuer|Animation|Komödie|Familie|Science Fiction,8.206,"['Abenteuer', 'Animation', 'Komödie', 'Familie', 'Science Fiction']",6.2
